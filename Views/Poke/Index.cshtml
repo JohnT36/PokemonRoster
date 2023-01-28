@@ -1,0 +1,28 @@
+﻿@model Pokemon
+
+
+<div class="card">
+    <div>
+        
+        <div class="card-header">
+        
+        <h2>@Model.id @Model.name</h2>
+    </div>
+        <div class="card-body">
+            <img src="@Model.sprite" />
+        
+        </div>
+
+        
+       <div class="card-footer">
+            <p>@Model.abilities[0]</p>
+       
+        
+        <form asp-controller="Poke" asp-action="AddToRoster">
+            <button name="pokemonName" value="@Model.name" type="submit" > Add To Roster</button>
+        </form>
+
+        </div>
+       
+            </div>
+</div>
