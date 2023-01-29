@@ -2,14 +2,15 @@
 @model PokemonApiObj
 
 
-<div class="card  mb-lg-2" >
+<div class="card rcard  mb-lg-2" >
 
     <div>
-        <img src="@Model.sprites.front_default" style="width:300px" class="card-img-top border border-2 border-warning m-3 p-3" />
+        <img src="@Model.sprites.front_default"  class="card-img-top border border-2 border-warning " />
     </div>
         <div class="m-3 p-2 card-header ">
         <h2>    @Char.ToUpper(Model.name[0])@Model.name.Substring(1)  </h2>        
         <img class="m-3 p-3 border border-2 border-warning card-body" src="@Model.sprites.front_shiny" />
+        <h3>    Shiny       </h3>
         <li>    Abilities ~ @Model.abilities[0].ability.name</li>
         <div class="ps-4 m-1 text-danger card-footer border">
             
