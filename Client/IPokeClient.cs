@@ -4,6 +4,9 @@ namespace PokemonRoster.Client
 {
     public interface IPokeClient
     {
-        public Pokemon GetPokemon(string pokemonName);
+        public Pokemon GetPokemonByName(string pokemonName);
+        public Pokemon GetPokemonByID(int id);
+        public IEnumerable<Pokemon> GetGroupOfPokemonFromPokemon(Pokemon pokemon);
+        public PokemonApiObj GetPokemonForInfo(string pokemonName);
     }
 }

@@ -1,0 +1,34 @@
+﻿@using PokemonRoster.Client;
+@model PokemonApiObj
+
+
+<div class="card  mb-lg-2" >
+
+    <div>
+        <img src="@Model.sprites.front_default" style="width:300px" class="card-img-top border border-2 border-warning m-3 p-3" />
+    </div>
+        <div class="m-3 p-2 card-header ">
+        <h2>    @Char.ToUpper(Model.name[0])@Model.name.Substring(1)  </h2>        
+        <img class="m-3 p-3 border border-2 border-warning card-body" src="@Model.sprites.front_shiny" />
+        <li>    Abilities ~ @Model.abilities[0].ability.name</li>
+        <div class="ps-4 m-1 text-danger card-footer border">
+            
+            <h5 class="ps-4 m-1 text-danger  ">    Stats   </h5>
+        <li>     @Char.ToUpper(Model.stats[0].stat.name[0])@Model.stats[0].stat.name.Substring(1) @Model.stats[0].base_stat</li>
+        <li>     @Char.ToUpper(Model.stats[1].stat.name[0])@Model.stats[1].stat.name.Substring(1) @Model.stats[1].base_stat</li>
+        <li>     @Char.ToUpper(Model.stats[2].stat.name[0])@Model.stats[2].stat.name.Substring(1) @Model.stats[2].base_stat</li>
+                                                                 
+        <li>     @Char.ToUpper(Model.stats[3].stat.name[0])@Model.stats[3].stat.name.Substring(1) @Model.stats[3].base_stat</li>
+        <li>     @Char.ToUpper(Model.stats[4].stat.name[0])@Model.stats[4].stat.name.Substring(1) @Model.stats[4].base_stat</li>
+        <li>     @Char.ToUpper(Model.stats[5].stat.name[0])@Model.stats[5].stat.name.Substring(1) @Model.stats[5].base_stat</li>
+        </div>
+
+    </div>
+
+</div>
+<div>
+    <p>
+        <br />
+        
+    </p>
+</div>

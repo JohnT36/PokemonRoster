@@ -22,10 +22,10 @@ body {
     
 }
 
-.card {
+.rcard {
     height: 300px;
     width: 200px;
-    background-color: #FDF5E6
+    background-color: #808080
 }
 
 .card-container{

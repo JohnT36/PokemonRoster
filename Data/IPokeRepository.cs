@@ -6,7 +6,11 @@ namespace PokemonRoster.Data
     {
         public void AddToRoster(Pokemon userResp);
         public void RemoveFromRoster(string pokemonToRemove);
-        public IEnumerable<Pokemon> GetPokemons();
-        
+        public IEnumerable<Pokemon> GetRosterPokemon();
+        public void AddToFavs(Pokemon userResp);
+        public IEnumerable<Pokemon> GetFavsPokemon();
+        public void RemoveFromFavs(string pokemonToRemove);
+
+
     }
 }

@@ -17,21 +17,26 @@ namespace PokemonRoster.Controllers
         public IActionResult Index()
         {
             var pResponse = Request.Form["pokemon"];
-            var pokemon = _client.GetPokemon(pResponse);
-            return View(pokemon);
+            var pokemon = _client.GetPokemonByName(pResponse);
+            var pokemons = _client.GetGroupOfPokemonFromPokemon(pokemon);
+            return View(pokemons);
         }
 
         public IActionResult AddToRoster()
         {
             var pokeName = Request.Form["pokemonName"];
-            var pokemonObject = _client.GetPokemon(pokeName);
+            var pokemonObject = _client.GetPokemonByName(pokeName);
             _conn.AddToRoster(pokemonObject);
             return RedirectToAction("Roster");
         }
 
         public IActionResult Roster()
         {
-           var pokemons = _conn.GetPokemons();
+           var pokemons = _conn.GetRosterPokemon();
+            if(pokemons.Count() <= 5 )
+            {
+
+            }
             return View(pokemons);
         }
 
@@ -56,6 +61,14 @@ namespace PokemonRoster.Controllers
         public IActionResult RemoveFromFavs()
         {
             return RedirectToAction("Favs");
+        }
+
+        public IActionResult Info()
+        {
+            var pResponse = Request.Form["pokemonName"];
+            var pokemon = _client.GetPokemonForInfo(pResponse);
+            return View(pokemon);
+
         }
     }
 }

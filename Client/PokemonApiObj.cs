@@ -1,6 +1,6 @@
 ﻿namespace PokemonRoster.Client
 {
-    public class PokemonApiResponse
+    public class PokemonApiObj
     {
 
         public Ability[] abilities { get; set; }

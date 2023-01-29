@@ -16,5 +16,6 @@
         public List<int> stats { get; set; }
         public List<string>? types { get; set; }
         public int weight { get; set; }
+        public string nickname { get; set; }
     }
 }
