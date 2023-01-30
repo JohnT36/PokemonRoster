@@ -1,0 +1,38 @@
+﻿@using PokemonRoster.Client;
+@model IEnumerable<Pokemon>
+
+    <div class="card m-3 p-3">
+        <h3>Pokedex</h3>
+    </div>
+
+@foreach (var x in Model)
+{
+    <div class="card-container d-inline-flex p-2 m-2">
+
+        <div class="card rcard">
+
+            <div class="card-header m-3 p-2">
+                <h4> @char.ToUpper(@x.name[0])@x.name.Substring(1)</h4>
+            </div>
+            <div class="card-body ">
+                <img src="@x.sprite" />
+                <p>@x.id</p>
+            </div>
+            <div class="card-footer">
+                
+                <div>
+                    <form asp-controller="Poke" asp-action="AddToRoster">
+                        <button class=" btn btn-success btn-outline-danger" name="pokemonName" value="@x.name" type="submit"> Add To Roster</button>
+                    </form>
+                </div>
+                <div>
+                    <form asp-controller="Poke" asp-action="Info">
+                        <button class=" btn btn-info btn-outline-warning" name="pokemonName" value="@x.name" type="submit"> Check Info</button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}

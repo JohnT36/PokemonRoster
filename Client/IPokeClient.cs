@@ -8,5 +8,6 @@ namespace PokemonRoster.Client
         public Pokemon GetPokemonByID(int id);
         public IEnumerable<Pokemon> GetGroupOfPokemonFromPokemon(Pokemon pokemon);
         public PokemonApiObj GetPokemonForInfo(string pokemonName);
+        public IEnumerable<Pokemon> GetAllPokemonInThePokedex();
     }
 }

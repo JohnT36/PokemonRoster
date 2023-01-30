@@ -55,14 +55,14 @@ namespace PokemonRoster.Client
                 groupPoke.Add(poke2);
             }
 
-            if (posCount != 1058)
+            if (posCount != 1008)
             {
                 posCount++;
                 var poke3 = GetPokemonByID(posCount);
                 groupPoke.Add(poke3);
             }
 
-            if (posCount != 1058)
+            if (posCount != 1008)
             {
                 posCount++;
                 var poke4 = GetPokemonByID(posCount);
@@ -99,6 +99,18 @@ namespace PokemonRoster.Client
             var pokemonInfo = JsonSerializer.Deserialize<PokemonApiObj>(pokeResponse);
 
             return pokemonInfo;
+        }
+
+        public IEnumerable<Pokemon> GetAllPokemonInThePokedex()
+        {
+            var pokedex = new List<Pokemon>();
+            for(var x = 152;x<=251;x++)
+            {
+                var pokemonSingle = GetPokemonByID(x);
+                pokedex.Add(pokemonSingle);
+
+            }
+            return pokedex;
         }
     }
 }

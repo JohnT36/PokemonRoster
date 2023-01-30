@@ -70,5 +70,12 @@ namespace PokemonRoster.Controllers
             return View(pokemon);
 
         }
+
+        public IActionResult Pokedex()
+        {
+            var pokedex = _conn.GetPokedexPokemon();
+            return View(pokedex);
+
+        }
     }
 }

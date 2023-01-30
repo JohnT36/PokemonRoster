@@ -10,6 +10,8 @@ namespace PokemonRoster.Data
         public void AddToFavs(Pokemon userResp);
         public IEnumerable<Pokemon> GetFavsPokemon();
         public void RemoveFromFavs(string pokemonToRemove);
+        public void AddToPokedexAllPokemonOneTime(IEnumerable<Pokemon> pokemon);
+        public IEnumerable<Pokemon> GetPokedexPokemon();
 
 
     }
