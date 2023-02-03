@@ -31,7 +31,7 @@ namespace PokemonRoster.Data
 
         public IEnumerable<Pokemon> GetRosterPokemon()
         {
-            return _conn.Query<Pokemon>("SELECT * FROM roster;");
+            return _conn.Query<Pokemon>("SELECT * FROM roster Order By id ASC;");
         }        
 
         public void RemoveFromRoster(string pokemonToRemove)

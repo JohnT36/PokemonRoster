@@ -104,7 +104,7 @@ namespace PokemonRoster.Client
         public IEnumerable<Pokemon> GetAllPokemonInThePokedex()
         {
             var pokedex = new List<Pokemon>();
-            for(var x = 152;x<=251;x++)
+            for(var x = 801;x<=1008;x++)
             {
                 var pokemonSingle = GetPokemonByID(x);
                 pokedex.Add(pokemonSingle);

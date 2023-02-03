@@ -2,10 +2,10 @@
 @model PokemonApiObj
 
 
-<div class="card rcard  mb-lg-2" >
+<div class="card infocard  mb-lg-2" >
 
     <div>
-        <img src="@Model.sprites.front_default"  class="card-img-top border border-2 border-warning " />
+        <img src="@Model.sprites.other.dream_world.front_default"  class="card-img-top border border-2 border-warning " />
     </div>
         <div class="m-3 p-2 card-header ">
         <h2>    @Char.ToUpper(Model.name[0])@Model.name.Substring(1)  </h2>        

@@ -16,10 +16,33 @@ namespace PokemonRoster.Controllers
         }
         public IActionResult Index()
         {
-            var pResponse = Request.Form["pokemon"];
-            var pokemon = _client.GetPokemonByName(pResponse);
-            var pokemons = _client.GetGroupOfPokemonFromPokemon(pokemon);
-            return View(pokemons);
+            var pResponse = Request.Form["pokemon"];            
+            bool isDigit = false;
+            foreach(char p in pResponse.ToString())
+            {
+                if (Char.IsDigit(p))
+                {
+                    isDigit = true;
+                    
+
+                }
+            }
+
+            if (isDigit)
+            {
+                var pokemon = _client.GetPokemonByID(int.Parse(pResponse));
+                var pokemons = _client.GetGroupOfPokemonFromPokemon(pokemon);
+                return View(pokemons);
+            }
+            else
+            {
+                 var pokemon = _client.GetPokemonByName(pResponse);
+                var pokemons = _client.GetGroupOfPokemonFromPokemon(pokemon);
+                return View(pokemons);
+            }
+            
+            
+            
         }
 
         public IActionResult AddToRoster()

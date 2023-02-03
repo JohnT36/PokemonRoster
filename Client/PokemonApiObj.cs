@@ -4,7 +4,7 @@
     {
 
         public Ability[] abilities { get; set; }
-        public int base_experience { get; set; }
+        public int? base_experience { get; set; }
         public Form[] forms { get; set; }
         public Game_Indices[] game_indices { get; set; }
         public int height { get; set; }
