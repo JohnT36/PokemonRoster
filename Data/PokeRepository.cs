@@ -13,9 +13,7 @@ namespace PokemonRoster.Data
         public PokeRepository(IDbConnection conn) 
         {
             _conn = conn;
-        }
-
-        
+        }        
 
         public void AddToRoster(Pokemon userResp)
         {

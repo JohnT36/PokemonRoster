@@ -6,7 +6,7 @@ namespace PokemonRoster.Client
 {
     public class PokeClient : IPokeClient
     {
-        HttpClient _conn = new HttpClient();
+        private readonly HttpClient _conn = new HttpClient();
         public PokeClient()
         {
 

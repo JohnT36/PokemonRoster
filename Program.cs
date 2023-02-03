@@ -19,6 +19,7 @@ builder.Services.AddScoped<IDbConnection>((s) =>
 });
 
 builder.Services.AddTransient<IPokeRepository, PokeRepository>();
+
 builder.Services.AddTransient<IPokeClient,PokeClient>();
 
 var app = builder.Build();
