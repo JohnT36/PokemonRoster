@@ -6,33 +6,37 @@ namespace PokemonRoster.Client
 {
     public class PokeClient : IPokeClient
     {
-        private readonly HttpClient _conn = new HttpClient();
-        public PokeClient()
-        {
+        private readonly HttpClient _conn = new HttpClient();        
 
-        }
-
-        public Pokemon GetPokemonByName(string pokemonName)
+        public Pokemon? GetPokemonByName(string pokemonName)
         {
-            var pokeResponse = _conn.GetStringAsync($"https://pokeapi.co/api/v2/pokemon/{pokemonName}").Result;
-            var pokemonInfo = JsonSerializer.Deserialize<PokemonApiObj>(pokeResponse);
-            var pokemon = new Pokemon()
+            try
             {
-                name = pokemonInfo.name,
-                abilities = pokemonInfo.abilities.Select(ability => ability.ability.name).ToList(),
-                height = pokemonInfo.height,
-                id = pokemonInfo.id,
-                moves = pokemonInfo.moves.Select(move => move.move.name).ToList(),
-                sprite = pokemonInfo.sprites.front_default,
-                stats = pokemonInfo.stats.Select(stat => stat.base_stat).ToList(),
-                types = pokemonInfo.types.Select(type => type.type.name).ToList(),
-                weight = pokemonInfo.weight,
+                var pokeResponse = _conn.GetStringAsync($"https://pokeapi.co/api/v2/pokemon/{pokemonName.ToLower()}").Result;
+            }
+             catch
+            {
+                return null;
+            }
+            var pokeResponsee = _conn.GetStringAsync($"https://pokeapi.co/api/v2/pokemon/{pokemonName.ToLower()}").Result;
+            var pokemonInfo = JsonSerializer.Deserialize<PokemonApiObj>(pokeResponsee);
+                var pokemon = new Pokemon()
+                {
+                    name = pokemonInfo.name,
+                    abilities = pokemonInfo.abilities.Select(ability => ability.ability.name).ToList(),
+                    height = pokemonInfo.height,
+                    id = pokemonInfo.id,
+                    moves = pokemonInfo.moves.Select(move => move.move.name).ToList(),
+                    sprite = pokemonInfo.sprites.front_default,
+                    stats = pokemonInfo.stats.Select(stat => stat.base_stat).ToList(),
+                    types = pokemonInfo.types.Select(type => type.type.name).ToList(),
+                    weight = pokemonInfo.weight,
 
-            };
-            return pokemon;
+                };
+                return pokemon;
+            
 
-        }
-       
+        }       
 
         public IEnumerable<Pokemon> GetGroupOfPokemonFromPokemon (Pokemon ok)
         {
@@ -73,24 +77,36 @@ namespace PokemonRoster.Client
             return groupPoke;
         }
 
-        public Pokemon GetPokemonByID(int pokemonID)
+        public Pokemon? GetPokemonByID(int pokemonID)
         {
-            var pokeResponse = _conn.GetStringAsync($"https://pokeapi.co/api/v2/pokemon/{pokemonID}").Result;
-            var pokemonInfo = JsonSerializer.Deserialize<PokemonApiObj>(pokeResponse);
-            var pokemon = new Pokemon()
+            try
             {
-                name = pokemonInfo.name,
-                abilities = pokemonInfo.abilities.Select(ability => ability.ability.name).ToList(),
-                height = pokemonInfo.height,
-                id = pokemonInfo.id,
-                moves = pokemonInfo.moves.Select(move => move.move.name).ToList(),
-                sprite = pokemonInfo.sprites.front_default,
-                stats = pokemonInfo.stats.Select(stat => stat.base_stat).ToList(),
-                types = pokemonInfo.types.Select(type => type.type.name).ToList(),
-                weight = pokemonInfo.weight,
+                var pokeResponse = _conn.GetStringAsync($"https://pokeapi.co/api/v2/pokemon/{pokemonID}").Result;
+            }
+            catch
+            {
+                return null;
+            }
+            var pokeResponsee = _conn.GetStringAsync($"https://pokeapi.co/api/v2/pokemon/{pokemonID}").Result;
+            var pokemonInfo = JsonSerializer.Deserialize<PokemonApiObj>(pokeResponsee);
+                var pokemon = new Pokemon()
+                {
+                    name = pokemonInfo.name,
+                    abilities = pokemonInfo.abilities.Select(ability => ability.ability.name).ToList(),
+                    height = pokemonInfo.height,
+                    id = pokemonInfo.id,
+                    moves = pokemonInfo.moves.Select(move => move.move.name).ToList(),
+                    sprite = pokemonInfo.sprites.front_default,
+                    spriteDW = pokemonInfo.sprites.other.dream_world.front_default,
+                    stats = pokemonInfo.stats.Select(stat => stat.base_stat).ToList(),
+                    types = pokemonInfo.types.Select(type => type.type.name).ToList(),
+                    weight = pokemonInfo.weight,
 
-            };
-            return pokemon;
+                };
+                return pokemon;
+         
+            
+            
         }
 
         public PokemonApiObj GetPokemonForInfo(string pokemonName)

@@ -13,6 +13,8 @@
         public string? name { get; set; }
 
         public string sprite { get; set; }
+
+        public string spriteDW { get; set; }
         public List<int> stats { get; set; }
         public List<string>? types { get; set; }
         public int weight { get; set; }

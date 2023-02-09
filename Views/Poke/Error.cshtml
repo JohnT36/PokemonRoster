@@ -1,0 +1,14 @@
+﻿@model ErrorModel
+
+<div class="border border-3 border-dark bg-dark rounded-3  m-3 p-3">
+
+    <h2>    No luck looking for this pokemon "@Model.UserInput"  </h2>
+    <p>     Try looking for another one!                         </p>
+</div>
+<form asp-controller="Poke" asp-action="Index" class="border border-3 border-dark bg-dark rounded-3  m-3 p-3">
+    <div>
+        <label class="form-label text-danger"><h2>Pokemon Name</h2></label>
+        <input class="form-control" name="pokemon" required="" />
+        <button class="btn btn-info m-3" type="submit" value="search">Search Pokemon</button>
+    </div>
+</form>

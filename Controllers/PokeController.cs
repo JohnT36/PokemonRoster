@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PokemonRoster.Client;
 using PokemonRoster.Data;
+using PokemonRoster.Models;
 using System.Runtime.InteropServices;
 
 namespace PokemonRoster.Controllers
@@ -16,9 +17,9 @@ namespace PokemonRoster.Controllers
         }
         public IActionResult Index()
         {
-            var pResponse = Request.Form["pokemon"];            
+            var userResponse = Request.Form["pokemon"];            
             bool isDigit = false;
-            foreach(char p in pResponse.ToString())
+            foreach(char p in userResponse.ToString())
             {
                 if (Char.IsDigit(p))
                 {
@@ -30,13 +31,29 @@ namespace PokemonRoster.Controllers
 
             if (isDigit)
             {
-                var pokemon = _client.GetPokemonByID(int.Parse(pResponse));
+                var pokemon = _client.GetPokemonByID(int.Parse(userResponse));
+                if (pokemon == null)
+                {
+                    ErrorModel model = new ErrorModel()
+                    {
+                        UserInput = userResponse,
+                    };
+                    return RedirectToAction("Error", model);
+                }
                 var pokemons = _client.GetGroupOfPokemonFromPokemon(pokemon);
                 return View(pokemons);
             }
             else
             {
-                 var pokemon = _client.GetPokemonByName(pResponse);
+                 var pokemon = _client.GetPokemonByName(userResponse);
+                if (pokemon == null)
+                {
+                    ErrorModel model = new ErrorModel()
+                    {
+                        UserInput = userResponse,
+                    };
+                    return RedirectToAction("Error", model);
+                }
                 var pokemons = _client.GetGroupOfPokemonFromPokemon(pokemon);
                 return View(pokemons);
             }
@@ -99,6 +116,12 @@ namespace PokemonRoster.Controllers
             var pokedex = _conn.GetPokedexPokemon();
             return View(pokedex);
 
+        }
+
+        public IActionResult Error(ErrorModel model)
+        {
+
+            return View(model);
         }
     }
 }
