@@ -1,6 +1,6 @@
 ﻿namespace PokemonRoster.Models
 {
-    public class Pokemon
+    public class UserPokemon
     {
         public List<string> abilities { get; set; }
 
@@ -19,5 +19,8 @@
         public List<string>? types { get; set; }
         public int weight { get; set; }
         public string nickname { get; set; }
+        public List<string> strengths { get; set; }
+        public List<string> weaknesses { get; set; }
+        public string backgroundcolorbytype { get; set; }
     }
 }

@@ -37,3 +37,49 @@ body {
     width: 200px;
     background-color: #808080
 }
+
+.scroll-animation {
+    opacity: 0;
+    animation: fade-in 1s ease-in forwards;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.bg-type-red {
+    background-color: red;
+}
+.bg-type-blue {
+    background-color: blue;
+}
+.bg-type-green {
+    background-color: green;
+}
+.bg-type-gray {
+    background-color: gray;
+}
+.bg-type-white {
+    background-color: white
+}
+.bg-type-yellow {
+    background-color: yellow;
+}
+.bg-type-silver {
+    background-color: silver;
+}
+.bg-type-purple {
+    background-color: purple;
+}
+.bg-type-pink {
+    background-color: pink;
+}
+
+

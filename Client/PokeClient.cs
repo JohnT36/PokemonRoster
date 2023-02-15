@@ -1,4 +1,5 @@
 ﻿using PokemonRoster.Models;
+using PokemonRoster.Models.PokemonType;
 using System.Collections.Generic;
 using System.Text.Json;
 
@@ -8,7 +9,7 @@ namespace PokemonRoster.Client
     {
         private readonly HttpClient _conn = new HttpClient();        
 
-        public Pokemon? GetPokemonByName(string pokemonName)
+        public UserPokemon? GetPokemonByName(string pokemonName)
         {
             try
             {
@@ -20,27 +21,35 @@ namespace PokemonRoster.Client
             }
             var pokeResponsee = _conn.GetStringAsync($"https://pokeapi.co/api/v2/pokemon/{pokemonName.ToLower()}").Result;
             var pokemonInfo = JsonSerializer.Deserialize<PokemonApiObj>(pokeResponsee);
-                var pokemon = new Pokemon()
-                {
-                    name = pokemonInfo.name,
-                    abilities = pokemonInfo.abilities.Select(ability => ability.ability.name).ToList(),
-                    height = pokemonInfo.height,
-                    id = pokemonInfo.id,
-                    moves = pokemonInfo.moves.Select(move => move.move.name).ToList(),
-                    sprite = pokemonInfo.sprites.front_default,
-                    stats = pokemonInfo.stats.Select(stat => stat.base_stat).ToList(),
-                    types = pokemonInfo.types.Select(type => type.type.name).ToList(),
-                    weight = pokemonInfo.weight,
-
-                };
-                return pokemon;
             
+                var pokeResponseType = _conn.GetStringAsync($"{pokemonInfo.types[0].type.url}").Result;
+            var pokemonInfoType = JsonSerializer.Deserialize<PokemonTypes>(pokeResponseType);
+
+
+            var pokemon = new UserPokemon()
+            {
+                name = pokemonInfo.name,
+                abilities = pokemonInfo.abilities.Select(ability => ability.ability.name).ToList(),
+                height = pokemonInfo.height,
+                id = pokemonInfo.id,
+                moves = pokemonInfo.moves.Select(move => move.move.name).ToList(),
+                sprite = pokemonInfo.sprites.front_default,
+                stats = pokemonInfo.stats.Select(stat => stat.base_stat).ToList(),
+                types = pokemonInfo.types.Select(type => type.type.name).ToList(),
+                weight = pokemonInfo.weight,
+                weaknesses = pokemonInfoType.damage_relations.double_damage_from.Select(x => x.name).ToList(),
+                strengths = pokemonInfoType.damage_relations.double_damage_to.Select(x => x.name).ToList(),
+
+
+        };
+
+            return pokemon;
 
         }       
 
-        public IEnumerable<Pokemon> GetGroupOfPokemonFromPokemon (Pokemon ok)
+        public IEnumerable<UserPokemon> GetGroupOfPokemonFromPokemon (UserPokemon ok)
         {
-            var groupPoke = new List<Pokemon>();
+            var groupPoke = new List<UserPokemon>();
             var negCount = ok.id;
             var posCount = ok.id;
             groupPoke.Add(ok);
@@ -77,7 +86,7 @@ namespace PokemonRoster.Client
             return groupPoke;
         }
 
-        public Pokemon? GetPokemonByID(int pokemonID)
+        public UserPokemon? GetPokemonByID(int pokemonID)
         {
             try
             {
@@ -89,7 +98,11 @@ namespace PokemonRoster.Client
             }
             var pokeResponsee = _conn.GetStringAsync($"https://pokeapi.co/api/v2/pokemon/{pokemonID}").Result;
             var pokemonInfo = JsonSerializer.Deserialize<PokemonApiObj>(pokeResponsee);
-                var pokemon = new Pokemon()
+
+            var pokeResponseType = _conn.GetStringAsync($"{pokemonInfo.types[0].type.url}").Result;
+            var pokemonInfoType = JsonSerializer.Deserialize<PokemonTypes>(pokeResponseType);
+
+            var pokemon = new UserPokemon()
                 {
                     name = pokemonInfo.name,
                     abilities = pokemonInfo.abilities.Select(ability => ability.ability.name).ToList(),
@@ -101,8 +114,31 @@ namespace PokemonRoster.Client
                     stats = pokemonInfo.stats.Select(stat => stat.base_stat).ToList(),
                     types = pokemonInfo.types.Select(type => type.type.name).ToList(),
                     weight = pokemonInfo.weight,
+                weaknesses = pokemonInfoType.damage_relations.double_damage_from.Select(x => x.name).ToList(),
+                strengths = pokemonInfoType.damage_relations.double_damage_to.Select(x => x.name).ToList(),
 
-                };
+            };
+            switch(pokemon.types[0].ToLower())
+            {
+                case "fire": pokemon.backgroundcolorbytype = "red"; break;
+                case "water": pokemon.backgroundcolorbytype = "blue"; break;
+                case "grass": pokemon.backgroundcolorbytype = "green"; break;
+                case "normal": pokemon.backgroundcolorbytype = "gray"; break;
+                case "flying": pokemon.backgroundcolorbytype = "white"; break;
+                case "fighting": pokemon.backgroundcolorbytype = "orange"; break;
+                case "poison": pokemon.backgroundcolorbytype = "purple"; break;
+                case "electric": pokemon.backgroundcolorbytype = "yellow"; break;
+                case "ground": pokemon.backgroundcolorbytype = "brown"; break;
+                case "rock": pokemon.backgroundcolorbytype = "brown"; break;
+                case "ice": pokemon.backgroundcolorbytype = "blue"; break;
+                case "bug": pokemon.backgroundcolorbytype = "green"; break;
+                case "ghoes": pokemon.backgroundcolorbytype = "pruple"; break;
+                case "steel": pokemon.backgroundcolorbytype = "sliver"; break;
+                case "dragon": pokemon.backgroundcolorbytype = "purple"; break;
+                case "fairy": pokemon.backgroundcolorbytype = "pink"; break;                
+                
+
+            }
                 return pokemon;
          
             
@@ -117,9 +153,9 @@ namespace PokemonRoster.Client
             return pokemonInfo;
         }
 
-        public IEnumerable<Pokemon> GetAllPokemonInThePokedex()
+        public IEnumerable<UserPokemon> GetAllPokemonInThePokedex()
         {
-            var pokedex = new List<Pokemon>();
+            var pokedex = new List<UserPokemon>();
             for(var x = 801;x<=1008;x++)
             {
                 var pokemonSingle = GetPokemonByID(x);

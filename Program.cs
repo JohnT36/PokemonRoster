@@ -5,15 +5,15 @@ using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllersWithViews();
 
-var connection = builder.Configuration.GetConnectionString("bestbuy");
-// During the scope of my request // 
+var connection = builder.Configuration.GetConnectionString("pokeroster");
+ 
 builder.Services.AddScoped<IDbConnection>((s) =>
 {
     IDbConnection conn = new MySqlConnection(connection);
-    // Open before you can send a request to the DB //
+    
     conn.Open();
     return conn;
 });

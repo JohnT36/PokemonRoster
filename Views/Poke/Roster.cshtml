@@ -1,5 +1,5 @@
 ﻿@using PokemonRoster.Client;
-@model IEnumerable<Pokemon>
+@model IEnumerable<UserPokemon>
 
 <form asp-controller="Poke" asp-action="Index" class="border border-dark rounded-2 bg-dark border-3  m-3 p-3">
    <div>
@@ -10,7 +10,7 @@
 </form>
 <div class=" d-inline-flex flex flex-wrap justify-content-around align-content-around ">
 
-@foreach (Pokemon x in Model)
+@foreach (UserPokemon x in Model)
 {
   <div class=" d-inline-flex flex card-container flex-fill">
      <div class=" card rcard border-dark m-3 shadow-lg">
@@ -34,4 +34,7 @@
      </div>
   </div>
 }
+    <div class="scroll-animation">
+        <h1>Scroll Down</h1>
+    </div>
 </div>
